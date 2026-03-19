@@ -7,25 +7,17 @@ const PORT = 3000;
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
-// REGISTER (always success)
 app.post("/register", (req, res) => {
-    res.send(`
-        <h2>✅ Registered Successfully</h2>
-        <a href="/login.html">Go to Login</a>
-    `);
+    res.redirect(301, "/registered.html");
 });
 
-// LOGIN (hardcoded)
 app.post("/login", (req, res) => {
     const { username, password } = req.body;
 
     if (username === "chinmay" && password === "password") {
-        res.send(`
-            <h1>🎉 Logged in successfully</h1>
-            <p>Welcome ${username}</p>
-        `);
+        return res.redirect(301, "/loginsuccess.html");
     } else {
-        res.send(`
+        return res.status(403).send(`
             <h2>❌ Invalid credentials</h2>
             <a href="/login.html">Try again</a>
         `);
